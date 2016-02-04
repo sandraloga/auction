@@ -57,19 +57,19 @@ public class Auction
     {
         Lot selectedLot = getLot(lotNumber);
         if(selectedLot != null) {
-           
-            boolean successful = selectedLot.bidFor(new Bid(bidder, value););
+            Bid bid = new Bid (bidder , value);
+            boolean successful = selectedLot.bidFor(bid);
             if(successful) {
                 System.out.println("The bid for lot number " +
                                    lotNumber + " was successful.");
             }
             else {
                 // Report which bid is higher.
-                
+                Bid highestBid =  selectedLot.getHighestBid(); 
                 System.out.println("Lot number: " + lotNumber +
                                    " already has a bid of: " +
                                    highestBid.getValue());
-                selectedLot.getHighestBid().getValue();
+                
             }
         }
     }
@@ -101,5 +101,24 @@ public class Auction
                                " does not exist.");
             return null;
         }
+    }
+    /**
+     * metodo que  muestra por pantalla los detalles de todos los items que se estén subastando actualmente.
+     */
+    public void close()
+    {
+        for (Lot lote : lots)
+        {
+          System.out.println(lote.toString());
+          if (lote.getHighestBid() == null)
+          {
+              System.out.println("No hay pujas");
+          }
+          else
+          {
+               System.out.println("El nombre es : " + lote.getHighestBid().getName()+ " y importe de la puja mas alta es; " + lote.getHighestBid().getValue());
+          }
+        }
+    
     }
 }
